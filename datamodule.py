@@ -1,4 +1,3 @@
-import torch
 from torch_geometric.loader import DataLoader
 import numpy as np
 from SynMapper.model.dataset import SynMapperDataset
@@ -23,15 +22,15 @@ class SynMapperDataModule:
     def get_subset(self, indices):
         return [self.dataset[i] for i in indices]
 
-    def loader(self, split, **loader_kwargs):
+    def loader(self, split, batch_size=1, shuffle=False, **loader_kwargs):
         subset = self.get_subset(split)
-        return DataLoader(subset, **loader_kwargs)
+        return DataLoader(subset, batch_size=batch_size, shuffle=shuffle, **loader_kwargs)
 
-    def train_loader(self, **loader_kwargs):
-        return self.loader(self.train_split, shuffle=True, **loader_kwargs)
+    def train_loader(self, batch_size=1, **loader_kwargs):
+        return self.loader(self.train_split, batch_size=batch_size, shuffle=True, **loader_kwargs)
 
-    def val_loader(self, **loader_kwargs):
-        return self.loader(self.val_split, shuffle=False, **loader_kwargs)
+    def val_loader(self, batch_size=1, **loader_kwargs):
+        return self.loader(self.val_split, batch_size=batch_size, shuffle=False, **loader_kwargs)
 
-    def test_loader(self, **loader_kwargs):
-        return self.loader(self.test_split, shuffle=False, **loader_kwargs)
+    def test_loader(self, batch_size=1, **loader_kwargs):
+        return self.loader(self.test_split, batch_size=batch_size, shuffle=False, **loader_kwargs)
