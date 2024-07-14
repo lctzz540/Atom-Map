@@ -12,7 +12,7 @@ class SynMapperDataset(Dataset):
         super(SynMapperDataset, self).__init__(None, transform, pre_transform)
 
     def len(self):
-        return
+        return len(self.data)
 
     def get(self, idx):
         return self.data[idx]
